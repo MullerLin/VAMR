@@ -3,7 +3,6 @@ from scipy import signal
 
 
 def shi_tomasi(img, patch_size):
-
     sobel_x = np.array((-1, 0, 1, -2, 0, 2, -1, 0, 1)).reshape(3, 3)
     sobel_y = np.array((-1, -2, -1, 0, 0, 0, 1, 2, 1)).reshape(3, 3)
     I_x = signal.convolve2d(img, sobel_x, mode='valid')
@@ -26,5 +25,8 @@ def shi_tomasi(img, patch_size):
     M = np.concatenate((M1, M2), axis=2)
     w, v = np.linalg.eig(M)
     R_st = np.min(w, axis=2)
+
+    pad_size = int(sobel_x.shape[1] / 2) + int(box_matrix.shape[1] / 2)
+    R_st = np.lib.pad(R_st, (pad_size, pad_size), 'constant', constant_values=(0, 0))
 
     return R_st

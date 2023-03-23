@@ -9,4 +9,12 @@ def matchDescriptors(query_descriptors, database_descriptors, match_lambda):
     amount of query and database descriptors respectively. matches(i) will be zero(-1) if there is no database descriptor
     with an SSD < lambda * min(SSD). No two non-zero elements of matches will be equal.
     """
+    dist = cdist(np.array(query_descriptors.T), np.array(database_descriptors.T), metric='euclidean')
+    index = np.argmin(dist, axis=1)
+    value = np.min(dist, axis=1)
+    d_min = np.min(value)
+    for i in range(index.size):
+        if value[i] > match_lambda*d_min:
+            index[i] = 0
 
+    return index

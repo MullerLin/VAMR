@@ -53,6 +53,7 @@ plt.plot(keypoints[1, :], keypoints[0, :], 'rx', linewidth=2)
 plt.axis('off')
 plt.show()
 
+
 # Part 3 - Describe keypoints and show 16 strongest keypoint descriptors
 descriptors = describeKeypoints(img, keypoints, descriptor_radius)
 

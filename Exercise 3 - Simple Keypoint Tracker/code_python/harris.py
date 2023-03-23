@@ -25,4 +25,7 @@ def harris(img, patch_size, kappa):
     M = np.concatenate((M1, M2), axis=2)
     R_H = np.linalg.det(M) - kappa * np.trace(M, axis1=2, axis2=3) * np.trace(M, axis1=2, axis2=3)
 
+    pad_size = int(sobel_x.shape[1] / 2) + int(box_matrix.shape[1] / 2)
+    R_H = np.lib.pad(R_H, (pad_size, pad_size), 'constant', constant_values=(0, 0))
+
     return R_H

@@ -11,4 +11,8 @@ def reprojectPoints(P, M_tilde, K):
     
 
     # YOUR CODE GOES HERE
-    pass
+    num_corners = P.shape[0]
+    p_W_mat_h = np.hstack((P,np.mat(np.ones((num_corners,1)))))
+    pts_2d_ = (K * M_tilde * p_W_mat_h.T).T
+    pts_repro = pts_2d_[:,0:2] / pts_2d_[:,2]
+    return pts_repro
